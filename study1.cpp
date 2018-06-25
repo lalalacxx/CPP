@@ -5,8 +5,10 @@
     //第一个c++程序：输出hello world
     // ::  域限定符
     // endl  换行
-    // std:命名空间
-    // cout：可以先简单理解为我们的标准输出
+    // std:命名空间，
+    // 标准c++库中的所有组件都是在std这个命名空间中声明和定义的
+    // cout：标准输出流对象
+    // <<  输出操作符
 //    std::cout<<"hello world"<<std::endl;
 //    return 0;
 //}
@@ -45,21 +47,74 @@
 //}
 
 //命名空间的嵌套使用
-#include<iostream>
-#include<stdio.h>
+//#include<iostream>
+//#include<stdio.h>
+//
+//namespace my
+//{
+//    int aa = 10;
+//    namespace mine
+//    {
+//        int AA = 20;
+//    }
+//}
+//
+//int main()
+//{
+//    printf("%d\n",my::aa);
+//    printf("%d\n",my::mine::AA);
+//    return 0;
+//}
+//
 
-namespace my
-{
-    int aa = 10;
-    namespace mine
-    {
-        int AA = 20;
-    }
-}
 
-int main()
-{
-    printf("%d\n",my::aa);
-    printf("%d\n",my::mine::AA);
-    return 0;
-}
+//函数重载
+//在同一作用域内，一组函数的函数名相同，参数列表不同
+//参数列表不同：参数的个数和类型不同。
+//返回值类型可相同也可以不相同
+//#include<iostream>
+//
+//void fun1(int i)
+//{
+//    i = 0;
+//}
+//void fun2(char c)
+//{
+//    c = 'a';
+//}
+//int main()
+//{
+//    return 0;
+//}
+//c++是如何实现函数的重载的？？？
+//
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
