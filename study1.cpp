@@ -116,9 +116,34 @@
 //    printf("%d  %d  %d\n",res1,res2,res3);
 //    return 0;
 //}
-
-
-
+//半缺省：函数定义时，部分形参赋予初值
+//但只能从右往左依次缺省
+//#include<iostream>
+//#include<stdio.h>
+//int add1(int a,int b,int c = 3)
+//{
+//    return a+b+c;
+//}
+//int add2(int a,int b = 2,int c = 3)
+//{
+//    return a+b+c;
+//}
+////会报错 此处不符合缺省规则（从左往右依次缺省）
+//int add3(int a,int b = 2,int c)
+//{
+//    return a+b+c;
+//}
+//int main()
+//{
+//    int res1 = add1(1,2);
+//    int res2 = add1(1,2,4);
+//    int res3 = add2(10,20);
+//    int res4 = add3(10,30);//会报错
+//    //传参时从左往右依次传给形参（与编译器有关）
+//    //那么这里的30到底传给谁呢？因此半缺省时要依照缺省规则
+//    printf("%d  %d  %d\n",res1,res2,res3);
+//    return 0;
+//}
 
 
 
