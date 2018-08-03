@@ -201,8 +201,48 @@ public:
             _size -= len;
         }
     }
+    size_t Find(char ch)
+    {
+        for(size_t i = 0;i < _size;i++)
+        {
+            if(_str[i] == ch)
+            {
+                return i;
+            }
+        }
+        return npos;
+    }
+    size_t Find(const char *sub) const
+    {
+        if(sub == NULL)
+        {
+            return npos;
+        }
+        char *ret = _str;
+        while(*ret)
+        {
+            char *cur_tmp = (char *)sub;
+            char *str_tmp = ret;
+            while(*str_tmp && cur_tmp && *str_tmp == *cur_tmp)
+            {
+                str_tmp++;
+                cur_tmp++;
+            }
+            if(*cur_tmp == '\0')
+            {
+                return ret-_str;
+            }
+            else
+            {
+                ret++;
+            }
+        }
+        return npos;
+    }
 private:
     char *_str;
     size_t _size;
     size_t _capacity;
+    static size_t npos;
 };
+size_t String::npos = -1;
