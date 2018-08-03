@@ -47,6 +47,10 @@ public:
     {
         return _capacity;
     }
+    char *Str()
+    {
+        return _str;
+    }
     bool Empty()
     {
         return _size == 0;
@@ -111,16 +115,16 @@ public:
         size_t len = strlen(str);
         if(_size+len >_capacity)
         {
-            size_t newcapacity = _capacity*2;
-            while(newcapacity< _size+len)
-            {
-                newcapacity *= 2;
-            }
+           // size_t newcapacity = _capacity*2;
+           // while(newcapacity< _size+len)
+           // {
+           //     newcapacity *= 2;
+           // }
             Expand(_size+len);
         }
         strcpy(_str+_size,str);
         _size += len;
-        Insert(_size,str);
+        //Insert(_size,str);
     }
     //某个位置插入字符
     void Insert(size_t pos,char ch)
@@ -313,3 +317,33 @@ private:
     static size_t npos;
 };
 size_t String::npos = -1;
+
+
+void Test()
+{
+    String s("hello");
+    //拷贝构造函数测试
+    String s1(s);
+    std::cout<<s1.Str()<<std::endl;
+    //赋值运算符重载函数测试
+    String s2;
+    s2 = s;
+    std::cout<<s2.Str()<<std::endl;
+    //[]运算符重载函数测试
+    std::cout<<s[0]<<std::endl;
+    //PushBack函数测试
+    s.PushBack(' ');
+    std::cout<<s.Str()<<std::endl;
+    //Append函数测试
+    s.Append("world");
+    std::cout<<s.Str()<<std::endl;
+
+
+
+
+}
+int main()
+{
+    Test();
+    return 0;
+}
