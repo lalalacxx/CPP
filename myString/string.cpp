@@ -135,6 +135,52 @@ public:
         }
         strncpy(_str+pos,str,len);
     }
+    //s1+="hello"
+    String& operator+=(const char *str)
+    {
+        this->Append(str);
+        return *this;
+    }
+    //s1+=s2
+    String operator+=(const String& s)
+    {
+        *this += s._str;//this->operator+=(this,s._str);
+        return *this;
+    }
+    //s1+"hello"
+    String operator+(const char *str)
+    {
+        String ret(*this);
+        ret.Append(str);
+        return ret;
+    }
+    //s1+s2
+    String operator+(const String s)
+    {
+        return *this+s._str;
+    }
+    void PopBack()
+    {
+        assert(_size > 0);
+        --_size;
+        _str[_size] = '\0';
+    }
+    void Erase(size_t pos,size_t len)
+    {
+        assert(pos < _size);
+        if(pos+len >= _size)
+        {
+            _str[pos] = '\0';
+            _size = pos;
+        }
+        else
+        {
+            size_t start = pos+len;
+            _str[pos] = _str[start];
+            strcpy(_str+pos,_str+pos+len);
+            _size -= len;
+        }
+    }
 private:
     char *_str;
     size_t _size;
