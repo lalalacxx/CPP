@@ -1,6 +1,8 @@
 #include<iostream>
 #include<string.h>
 #include<assert.h>
+#include<stdio.h>
+
 class String
 {
 public:
@@ -314,6 +316,7 @@ private:
     char *_str;
     size_t _size;
     size_t _capacity;
+public:
     static size_t npos;
 };
 size_t String::npos = -1;
@@ -337,10 +340,32 @@ void Test()
     //Append函数测试
     s.Append("world");
     std::cout<<s.Str()<<std::endl;
-
-
-
-
+    //Insert函数测试
+    s.Insert(11,'O');
+    std::cout<<s.Str()<<std::endl;
+    s.Insert(1,'H');
+    std::cout<<s.Str()<<std::endl;
+    //s.Insert(15,'&');
+    //std::cout<<s.Str()<<std::endl;
+    //PopBack函数测试
+    s.PopBack();
+    std::cout<<s.Str()<<std::endl;
+    //Erase函数测试
+    s.Erase(1,1);
+    std::cout<<s.Str()<<std::endl;
+    s.Erase(5,10);
+    std::cout<<s.Str()<<std::endl;
+    //Find函数测试
+    size_t ret = s.Find('a');
+    size_t ret1 = s.Find('h');
+    if(ret1 != String::npos)
+    {
+        printf("找到了\n");
+    }
+    else
+    {
+        printf("没找到\n");
+    }
 }
 int main()
 {
