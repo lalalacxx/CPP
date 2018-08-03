@@ -60,10 +60,30 @@ public:
     {
         Expand(n);
     }
-    void Resize(size_t n)
+    //可能会同时改变size和capacity
+    //还会进行初始化(缺省初始化为\0)
+    void Resize(size_t n,char ch = '\0')
     {
-
+        if(n < _size)
+        {
+            _str[n] = '\0';
+            _size = n;
+        }
+        else
+        {
+            if(n > _capacity)
+            {
+                Expand(n);
+            }
+            for(size_t i = _size;i < n;++i)
+            {
+                _str[i] = ch;
+            }
+            _str[n] = '\0';
+            _size = n;
+        }
     }
+    //扩容
     void Expand(size_t n)
     {
         if(n > _capacity)
