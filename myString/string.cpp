@@ -239,6 +239,73 @@ public:
         }
         return npos;
     }
+    bool operator<(const String& s) const
+    {
+        const char* str1 = _str;
+        const char* str2 = s._str;
+        while(*str1 && *str2)
+        {
+            if(*str1 < *str2)
+                return true;
+            else if(*str1 > *str2)
+                return false;
+            else
+            {
+                ++str1;
+                ++str2;
+            }
+        }
+        if(*str1 == '\0' && *str2 != '\0')
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    bool operator<=(const String& s) const
+    {
+        return *this<s || *this==s;
+    }
+    bool operator>(const String& s) const
+    {
+        return !(*this<=s);
+    }
+    bool operator>=(const String& s) const
+    {
+        return !(*this<s);
+    }
+    bool operator==(const String& s) const
+    {
+        const char *str1 = _str;
+        const char *str2 = s._str;
+        while(*str1 && *str2)
+        {
+
+            if(*str1 != *str2)
+            {
+                return false;
+            }
+            else
+            {
+                ++str1;
+                ++str2;
+            }
+        }
+        if(*str1 == '\0' && *str2 == '\0')
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    bool operator!=(const String& s) const
+    {
+        return !(*this==s);
+    }
 private:
     char *_str;
     size_t _size;
