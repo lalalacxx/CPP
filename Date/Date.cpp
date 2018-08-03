@@ -46,12 +46,23 @@ public:
     //拷贝构造函数
     Date(const Date& d)
     {
-        
+        _year = d._year;
+        _month = d._month;
+        _day = d._day;
     }
     //析构函数,这里并没有什么好清理的，因此无需自定义一个析构函数
     //~Date(){};
     //赋值运算符重载
-    //
+    Date& operator=(const Date& d)
+    {
+        if(*this != d)//避免自己给自己赋值
+        {
+            _year = d._year;
+            _month = d._month;
+            _day = d._day;
+        }
+        return *this;
+    }
     //
     //
     //
