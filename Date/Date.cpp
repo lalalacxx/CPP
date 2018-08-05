@@ -139,7 +139,12 @@ public:
         return *this;
     }
     //+运算符重载
-    Date operator+(int day);
+    Date operator+(int day)
+    {
+        Date ret(*this);
+        ret += day;
+        return ret;
+    }
     //-=运算符重载
     Date& operator-=(int day)
     {
@@ -162,7 +167,12 @@ public:
         return *this;
     }
     //-运算符重载
-    Date operator-(int day);
+    Date operator-(int day)
+    {
+        Date ret(*this);
+        ret -= day;
+        return ret;
+    }
     //两个日期的相减
     int operator-(const Date& d)
     {
