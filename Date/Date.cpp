@@ -1,11 +1,15 @@
 #include <iostream>
 #include<assert.h>
-
+#include<stdio.h>
 using namespace std;
 
 class Date
 {
 public:
+    void show()
+    {
+        cout<<_year<<"-"<<_month<<"-"<<_day<<endl;
+    }
     //判断是否为闰年
     bool IsLeap(int year)
     {
@@ -33,7 +37,7 @@ public:
             && (_day>=1 && _day<=GetMonthDay(_year,_month));
     }
     //构造函数
-    Date(int year,int month,int day)
+    Date(int year=1900,int month=1,int day=1)
         :_year(year)
          ,_month(month)
          ,_day(day)
@@ -196,11 +200,70 @@ public:
         }
         return flag*count;
     }
-    //
-    //
-    //
+    //前置++运算符的重载
+    Date& operator++()
+    {
+        *this += 1;
+        return *this;
+    }
+    //后置++运算符的重载
+    Date operator++(int)
+    {
+        Date ret(*this);
+        *this += 1;
+        return ret;
+    }
+    //前置--运算符的重载
+    Date& operator--()
+    {
+        *this -= 1;
+        return *this;
+    }
+    //后置--运算符的重载
+    Date operator--(int)
+    {
+        Date ret(*this);
+        *this -= 1;
+        return ret;
+    }
+    
 private:
     int _year;
     int _month;
     int _day;
 };
+void test()
+{
+    //构造函数测试
+    Date d1(2018,1,1);
+    d1.show();    
+    //拷贝构造函数测试
+    Date d2(d1);
+    d2.show();
+    //赋值运算符重载函数测试
+    Date d3;
+    d3 = d1;
+    d3.show();
+    //==运算符重载函数测试
+    if(d1==d2)
+    {
+        printf("d1与d2相等\n");
+    }
+    //>运算符重载函数测试
+    ++d3;
+    if(d3>d1)
+    {
+        printf("d3大于d1\n");
+    }
+    //+=运算符重载函数测试
+    Date d4 = d3+=3;
+    d4.show();
+    //-=运算符重载函数测试
+    Date d5 = d3-=4;
+    d5.show();    
+}
+int main()
+{
+    test();
+    return 0;
+}
