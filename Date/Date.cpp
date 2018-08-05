@@ -140,6 +140,7 @@ public:
     }
     //+运算符重载
     Date operator+(int day);
+    //-=运算符重载
     Date& operator-=(int day)
     {
         while(_day < day)
@@ -162,8 +163,29 @@ public:
     }
     //-运算符重载
     Date operator-(int day);
-    //
-
+    //两个日期的相减
+    int operator-(const Date& d)
+    {
+        Date max(*this);
+        Date min(d);
+        int flag = 1;//大日期-小日期，结果为正数
+        if(*this < d)
+        {
+            max = d;
+            min = *this;
+            flag = -1;//小日期-大日期，结果为负数
+        }
+        int count = 0;
+        while(max != min)
+        {
+            //将日期较小的这一个，一天一天的往上加，
+            //直到与较大的日期相等，那么加了多少次，
+            //就说明之间相差多少天
+            min++;
+            count++;
+        }
+        return flag*count;
+    }
     //
     //
     //
