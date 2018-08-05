@@ -115,6 +115,55 @@ public:
     {
         return !(*this>d);
     }
+    //+=运算符的重载
+    Date& operator+=(int day)
+    {
+        _day+=day;
+        //先判断天数是否合法
+        while(_day > GetMonthDay(_year,_month))
+        {
+            //天数不合法，则先减去当月的天数
+            _day -= GetMonthDay(_year,_month);
+            //并让月份+1
+            _month += 1;
+            //接着判断月份是否合法
+            if(_month > 12)
+            {
+                //不合法则让年份+1
+                _year += 1;
+                //并且月份从头开始
+                _month = 1;
+            }
+            //一直循环直到天数合法为止
+        }
+        return *this;
+    }
+    //+运算符重载
+    Date operator+(int day);
+    Date& operator-=(int day)
+    {
+        while(_day < day)
+        {
+            //如果要剪掉的天数大于当前的日期（天）
+            //则借上一个月的天数
+            _month -= 1;//即把月份-1
+            if(_month == 0)
+            {
+                //判断月份不合法，则向上一个年份借一个月
+                _year -= 1;//即把年份-1
+                _month = 12;//月份置为12
+            }
+            //把借的天数与当前的天数相加
+            //直到天数满足要减去的天数退出循环
+            _day += GetMonthDay(_year,_month);
+        }
+        _day-=day;
+        return *this;
+    }
+    //-运算符重载
+    Date operator-(int day);
+    //
+
     //
     //
     //
