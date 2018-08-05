@@ -63,7 +63,58 @@ public:
         }
         return *this;
     }
-    //
+    //==运算符的重载
+    bool operator==(const Date& d)
+    {
+        if(_year == d._year && _month == d._month && _day == d._day)
+        {
+            return true;
+        }
+        return false;
+    }
+    //!=运算符的重载
+    bool operator!=(const Date& d)
+    {
+        return !(*this==d);
+    }
+    //>运算符的重载
+    bool operator>(const Date& d)
+    {
+        if(_year == d._year)
+        {
+            if(_month == d._month)
+            {
+                if(_day > d._day)
+                {
+                    return true;
+                }
+            }
+            else if(_month > d._month)
+            {
+                return true;
+            }
+        }
+        else if(_year > d._year)
+        {
+            return true;
+        }
+        return false;
+    }
+    //<运算符的重载
+    bool operator<(const Date& d)
+    {
+        return !(*this>d) && !(*this==d);
+    }
+    //>=运算符的重载
+    bool operator>=(const Date& d)
+    {
+        return !(*this<d);
+    }
+    //<=运算符的重载
+    bool operator<=(const Date& d)
+    {
+        return !(*this>d);
+    }
     //
     //
     //
