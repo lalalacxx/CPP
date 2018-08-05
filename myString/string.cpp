@@ -6,7 +6,7 @@
 class String
 {
 public:
-    //æ„é€ å‡½æ•°
+    //¹¹Ôìº¯Êı
     String(const char *str="")
         :_size(strlen(str))
         ,_capacity(_size)
@@ -20,19 +20,20 @@ public:
         std::swap(_size,s._size);
         std::swap(_capacity,s._capacity);
     }
-    //æ‹·è´æ„é€ 
+    //¿½±´¹¹Ôì
     String(const String& s)
         :_str(NULL)
     {
         String tmp(s._str);
         this->Swap(tmp);
     }
+    //¸³ÖµÔËËã·ûµÄÖØÔØ
     String& operator=(String s)
     {
         this->Swap(s);
         return *this;
     }
-    //ææ„å‡½æ•°
+    //Îö¹¹º¯Êı
     ~String()
     {
         if(_str)
@@ -41,37 +42,43 @@ public:
             _str = NULL;
         }
     }
+    //ÇóstringµÄ×Ö·û¸öÊı
     size_t Size()
     {
         return _size;
     }
+    //ÇóstringµÄÈİÁ¿
     size_t Capacity()
     {
         return _capacity;
     }
+    //ÇóstringµÄÄÚÈİ
     char *Str()
     {
         return _str;
     }
+    //ÅĞ¶ÏstringÊÇ·ñÎª¿Õ
     bool Empty()
     {
         return _size == 0;
     }
+    //[]²Ù×÷·ûµÄÖØÔØ
     char& operator[](size_t pos)
     {
         return _str[pos];
     }
-    
+    //À©Èİ£¬Ö»»á¸Ä±ä_capacityµÄ´óĞ¡
     void Reserve(size_t n)
     {
         Expand(n);
     }
-    //å¯èƒ½ä¼šåŒæ—¶æ”¹å˜sizeå’Œcapacity
-    //è¿˜ä¼šè¿›è¡Œåˆå§‹åŒ–(ç¼ºçœåˆå§‹åŒ–ä¸º\0)
+    //¿ÉÄÜ»áÍ¬Ê±¸Ä±ä_sizeºÍ_capacity
+    //²¢ÇÒ»¹»á½øĞĞ³õÊ¼»¯(È±Ê¡³õÊ¼»¯Îª'\0')
     void Resize(size_t n,char ch = '\0')
     {
-        if(n < _size)
+        if(n <= _size)
         {
+	        //´ËÊ±ÒòÎªÊÇËõĞ¡ÁË»òÕß²»±äËùÒÔ²»ÓÃ¸Ä±ä_capacityµÄÖµ
             _str[n] = '\0';
             _size = n;
         }
@@ -79,6 +86,7 @@ public:
         {
             if(n > _capacity)
             {
+	            //´ËÊ±n³¬¹ıÁËÈİÁ¿µÄ´óĞ¡Òò´ËĞèÒªÀ©Èİ
                 Expand(n);
             }
             for(size_t i = _size;i < n;++i)
@@ -89,7 +97,7 @@ public:
             _size = n;
         }
     }
-    //æ‰©å®¹
+    //À©Èİº¯Êı£¨ÕâÀïÉæ¼°µ½Ò»¸öÎÊÌâ¾ÍÊÇÈçºÎÀ©Èİ£¿£¿¸½ÔÚ´úÂëºóÃæ£©
     void Expand(size_t n)
     {
         if(n > _capacity)
@@ -101,8 +109,10 @@ public:
             _capacity = n;
         }
     }
+    //Î²²åº¯Êı
     void PushBack(char ch)
     {
+	    //·½·¨1£º
        // if(_size == _capacity)
        // {
        //     Expand(_capacity*2);
@@ -110,41 +120,42 @@ public:
        // _str[_size] = ch;
        // _str[_size+1] = '\0';
        // ++_size;
+        //·½·¨2£º¿ÉÖ±½Óµ÷ÓÃÊµÏÖµÄInsert()º¯Êı
         Insert(_size,ch);
     }
+    //ÔÚstringµÄºóÃæ×·¼ÓÒ»¸ö×Ö·û´®
     void Append(const char *str)
     {
         size_t len = strlen(str);
         if(_size+len >_capacity)
         {
-           // size_t newcapacity = _capacity*2;
-           // while(newcapacity< _size+len)
-           // {
-           //     newcapacity *= 2;
-           // }
             Expand(_size+len);
         }
-        strcpy(_str+_size,str);
+        strcpy(_str+_size,str);//½Ó×Å_strµÄÄ©Î²¿ªÊ¼Íùºó¿½±´
         _size += len;
-        //Insert(_size,str);
     }
-    //æŸä¸ªä½ç½®æ’å…¥å­—ç¬¦
+    //Ä³¸öÎ»ÖÃ²åÈë×Ö·û
     void Insert(size_t pos,char ch)
     {
         assert(pos <= _size);
         if(_capacity == _size)
         {
+	        //´ËÊ±ÒÑ¾­ÏàµÈ£¬Èç¹ûÔÚÏë²åÈëÒ»¸öÔªËØÔò¿Õ¼ä¿Ï¶¨²»¹»£¬
+	        //ĞèÒªÀ©Èİ
             Expand(_capacity*2);
         }
         int end = _size;
         while(end >= (int)pos)
         {
+	        //°Ñ°üÀ¨posÎ»ÖÃÔÚÄÚµÄÍùºóËùÓĞÔªËØÒÀ´ÎÍùºóÒÆ¶¯Ò»¸öÎ»ÖÃ
             _str[end+1] = _str[end];
             --end;
         }
+        //ÒÆ¶¯Íê³ÉÒÔºó£¬posÎ»ÖÃ¾Í¿Õ³öÀ´ÁË£¬½«´ı²åÈëµÄÔªËØ²åÈë
         _str[pos] = ch;
         ++_size;
     }
+    //Ä³¸öÎ»ÖÃ²åÈë×Ö·û´®
     void Insert(size_t pos,const char *str)
     {
         assert(pos <= _size);
@@ -160,17 +171,18 @@ public:
             --end;
         }
         strncpy(_str+pos,str,len);
+        //Ê¹ÓÃstrncpy²»»á½«´ı²åÈëµÄ×Ö·û´®µÄ'\0'Ò²¿½±´½øÄ¿±ê×Ö·û´®
     }
-    //s1+="hello"
+    //s1+="hello" +=ÔËËã·ûÖØÔØ£¬ÓëAppendº¯Êı¹¦ÄÜÏàÍ¬
     String& operator+=(const char *str)
     {
         this->Append(str);
         return *this;
     }
-    //s1+=s2
+    //s1+=s2 Á½¸östringÀàµÄ+=ÊµÏÖ
     String operator+=(const String& s)
     {
-        *this += s._str;//this->operator+=(this,s._str);
+        *this += s._str;//Ïàµ±ÓÚthis->operator+=(this,s._str);
         return *this;
     }
     //s1+"hello"
@@ -185,28 +197,30 @@ public:
     {
         return *this+s._str;
     }
+    //Î²É¾
     void PopBack()
     {
         assert(_size > 0);
         --_size;
         _str[_size] = '\0';
     }
+    //É¾³ıÄ³Ò»Î»ÖÃÍùºóµÄlen¸öÔªËØ
     void Erase(size_t pos,size_t len)
     {
         assert(pos < _size);
         if(pos+len >= _size)
         {
+	        //´ËÖÖÇé¿ö¾ÍÊÇ½«posÍùºóµÄËùÓĞ¶¼É¾µô
             _str[pos] = '\0';
             _size = pos;
         }
         else
         {
-            size_t start = pos+len;
-            _str[pos] = _str[start];
             strcpy(_str+pos,_str+pos+len);
             _size -= len;
         }
     }
+    //ÔÚstringÖĞ²éÕÒÊÇ·ñ´æÔÚÄ³Ò»¸ö×Ö·û£¬Èô´æÔÚ·µ»ØÏÂ±ê
     size_t Find(char ch)
     {
         for(size_t i = 0;i < _size;i++)
@@ -216,8 +230,11 @@ public:
                 return i;
             }
         }
+        //ÕâÀïµÄnposÊÇstringÀàÖĞµÄÒ»¸ö¹«ÓĞµÄ³ÉÔ±±äÁ¿£¨ÖµÎª-1£©
+        //·µ»ØÕâ¸ö¾ÍËµÃ÷Ã»ÓĞÕÒµ½
         return npos;
     }
+    //ÔÚstringÖĞ²éÕÒÊÇ·ñ´æÔÚÄ³Ò»¸ö×Ó´®£¬ÀàËÆÓÚstrstrº¯Êı
     size_t Find(const char *sub) const
     {
         if(sub == NULL)
@@ -236,6 +253,9 @@ public:
             }
             if(*cur_tmp == '\0')
             {
+	            //ÕÒµ½ÁË£¬·µ»ØÆ¥Åäµ½µÄ×Ó´®ÍùºóµÄ×Ö·û´®
+	            //Èç²éÕÒabcÔÚdabcjd23dabceÖĞÊÇ·ñ´æÔÚ£¬
+	            //½á¹û·µ»Øabcjd23dabceÕâ¸ö×Ö·û´®
                 return ret-_str;
             }
             else
@@ -263,6 +283,7 @@ public:
         }
         if(*str1 == '\0' && *str2 != '\0')
         {
+	        //str1×Ö·û´®±Èstr2Õâ¸ö×Ö·û´®Òª¶Ì
             return true;
         }
         else
@@ -325,46 +346,46 @@ size_t String::npos = -1;
 void Test()
 {
     String s("hello");
-    //æ‹·è´æ„é€ å‡½æ•°æµ‹è¯•
+    //¿½±´¹¹Ôìº¯Êı²âÊÔ
     String s1(s);
     std::cout<<s1.Str()<<std::endl;
-    //èµ‹å€¼è¿ç®—ç¬¦é‡è½½å‡½æ•°æµ‹è¯•
+    //¸³ÖµÔËËã·ûÖØÔØº¯Êı²âÊÔ
     String s2;
     s2 = s;
     std::cout<<s2.Str()<<std::endl;
-    //[]è¿ç®—ç¬¦é‡è½½å‡½æ•°æµ‹è¯•
+    //[]ÔËËã·ûÖØÔØº¯Êı²âÊÔ
     std::cout<<s[0]<<std::endl;
-    //PushBackå‡½æ•°æµ‹è¯•
+    //PushBackº¯Êı²âÊÔ
     s.PushBack(' ');
     std::cout<<s.Str()<<std::endl;
-    //Appendå‡½æ•°æµ‹è¯•
+    //Appendº¯Êı²âÊÔ
     s.Append("world");
     std::cout<<s.Str()<<std::endl;
-    //Insertå‡½æ•°æµ‹è¯•
+    //Insertº¯Êı²âÊÔ
     s.Insert(11,'O');
     std::cout<<s.Str()<<std::endl;
     s.Insert(1,'H');
     std::cout<<s.Str()<<std::endl;
     //s.Insert(15,'&');
     //std::cout<<s.Str()<<std::endl;
-    //PopBackå‡½æ•°æµ‹è¯•
+    //PopBackº¯Êı²âÊÔ
     s.PopBack();
     std::cout<<s.Str()<<std::endl;
-    //Eraseå‡½æ•°æµ‹è¯•
-    s.Erase(1,1);
+    //Eraseº¯Êı²âÊÔ
+    s.Erase(2,3);
     std::cout<<s.Str()<<std::endl;
     s.Erase(5,10);
     std::cout<<s.Str()<<std::endl;
-    //Findå‡½æ•°æµ‹è¯•
+    //Findº¯Êı²âÊÔ
     size_t ret = s.Find('a');
-    size_t ret1 = s.Find('h');
-    if(ret1 != String::npos)
+    //size_t ret = s.Find('h');
+    if(ret != String::npos)
     {
-        printf("æ‰¾åˆ°äº†\n");
+        printf("ÕÒµ½ÁË\n");
     }
     else
     {
-        printf("æ²¡æ‰¾åˆ°\n");
+        printf("Ã»ÕÒµ½\n");
     }
 }
 int main()
