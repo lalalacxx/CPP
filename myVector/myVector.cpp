@@ -32,6 +32,24 @@ public:
 
 		_start = _end = _endofstorage = NULL;
 	}
+    //赋值操作符重载
+	Vector<T>& operator=(Vector<T> v)
+	{
+		swap(_start, v._start);
+		swap(_end, v._end);
+		swap(_endofstorage, v._endofstorage);
+		return *this;
+	}
+
+	T& Back()
+	{
+		return *(_finish-1);
+	}
+
+	T& Front()
+	{
+		return *(_first);
+	}
 private:
     T *_start;
     T *_end;
