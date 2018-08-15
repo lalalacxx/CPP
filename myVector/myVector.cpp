@@ -29,7 +29,6 @@ public:
 		{
 			delete[] _start;
 		}
-
 		_start = _end = _endofstorage = NULL;
 	}
     //赋值操作符重载
@@ -40,15 +39,15 @@ public:
 		swap(_endofstorage, v._endofstorage);
 		return *this;
 	}
-
+    //取最后一个元素
 	T& Back()
 	{
-		return *(_finish-1);
+		return *(_end-1);
 	}
-
+    //取第一个元素
 	T& Front()
 	{
-		return *(_first);
+		return *(_start);
 	}
 private:
     T *_start;
