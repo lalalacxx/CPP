@@ -52,7 +52,6 @@ public:
     //尾插
 	void PushBack(const T& x)
 	{
-		//Insert(0, x);
 		if (_end == _endofstorage)
 		{
 			size_t newcapacity = Capacity() == 0 ? 3 : Capacity()*2;
@@ -80,30 +79,35 @@ public:
 			size_t newcapacity = Capacity() == 0 ? 3 : Capacity()*2;
 			Expand(newcapacity);
 		}
-
 		T* finish = _end-1;
+        //这种情况是待插入的位置在原有元素区间
+        //[_start,_end)之内
 		while (finish >= _start+pos)
 		{
+            //循环的将pos（包括pos位置在内）
+            //之后的元素往后移动一位
 			*(finish+1) = *finish;
 			--finish;
 		}
-		//*(_first+pos) = x;
+        //将待插入的元素赋值给pos位置
 		_start[pos] = x;
 		++_end;
 	}	
-
+    //任意位置元素删除
 	void Erase(size_t pos)
 	{
+        //pos位置的合法性检测
 		assert(pos < Size());
 
-		T* start = _first + pos;
-		while (start < _finish-1)
+		T* tmp = _start + pos;
+		while (tmp < _end-1)
 		{
-			*start = *(start+1);
-			++start;
+            //直接将pos位置往后的所有元素
+            //往前移动一位，将pos位置覆盖即可
+			*tmp = *(tmp+1);
+			++tmp;
 		}
-
-		--_finish;
+		--_end;
 	}
 
 	size_t Size() const
