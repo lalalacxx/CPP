@@ -109,27 +109,28 @@ public:
 		}
 		--_end;
 	}
-
+    //求vector中有多少个元素
 	size_t Size() const
 	{
-		return _finish - _first;
+		return _end - _start;
 	}
-
+    //求vector的容量
 	size_t Capacity() const
 	{
-		return _endofstorage - _first;
+		return _endofstorage - _start;
 	}
-
+    //判断vector是否为空
 	bool Empty()
 	{
-		return _first == _finish;
+        //二者相等，说明一个元素也没有
+        //则就是vector为空
+		return _start == _end;
 	}
-
+    //[]运算符重载函数
 	T& operator[](size_t pos)
 	{
 		assert(pos < Size());
-
-		return _first[pos];
+		return _start[pos];
 	}
 private:
     T *_start;
