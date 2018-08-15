@@ -63,32 +63,33 @@ public:
         //最终将_end的位置更新
 		++_end;
 	}
-
+    //尾删
 	void PopBack()
 	{
+        //调用Erase函数辅助完成
 		Erase(Size()-1);
 	}
-
+    //任意位置插入一个元素函数
 	void Insert(size_t pos, const T& x)
 	{
+        //pos位置的合法性检测
 		assert(pos <= Size());
 
-		if (_finish == _endofstorage)
+		if (_end == _endofstorage)
 		{
 			size_t newcapacity = Capacity() == 0 ? 3 : Capacity()*2;
 			Expand(newcapacity);
 		}
 
-		T* end = _finish-1;
-		while (end >= _first+pos)
+		T* finish = _end-1;
+		while (finish >= _start+pos)
 		{
-			*(end+1) = *end;
-			--end;
+			*(finish+1) = *finish;
+			--finish;
 		}
-
 		//*(_first+pos) = x;
-		_first[pos] = x;
-		++_finish;
+		_start[pos] = x;
+		++_end;
 	}	
 
 	void Erase(size_t pos)
